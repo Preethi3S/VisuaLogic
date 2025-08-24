@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-// Use environment variable or hardcoded URL
 const API_URL = import.meta.env.VITE_API_URL || "https://visualogic-backend.onrender.com";
 
 const AuthContext = createContext();
@@ -12,55 +11,55 @@ export const AuthProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : null;
   });
 
-  // Automatically logout if token expired
+  // Auto logout if token expired
   useEffect(() => {
     if (user?.expiry && Date.now() > user.expiry) {
       logout();
     }
   }, [user]);
 
+  // Login function
   const login = async (email, password) => {
     try {
       const res = await axios.post(`${API_URL}/api/users/login`, { email, password });
+      const { token, _id, name, email: userEmail, expiresIn } = res.data;
 
-      // Suppose backend returns { token, user, expiresIn }
-      const { token, user: userData, expiresIn } = res.data;
+      // Set expiry in ms
       const expiry = Date.now() + expiresIn * 1000;
 
-      const storedData = { ...userData, token, expiry };
-      setUser(storedData);
-      localStorage.setItem("user", JSON.stringify(storedData));
+      const storedUser = { _id, name, email: userEmail, token, expiry };
+      setUser(storedUser);
+      localStorage.setItem("user", JSON.stringify(storedUser));
 
-      return storedData;
-    } catch (error) {
-      throw error.response?.data?.message || "Login failed";
+      // Attach token to all future axios requests
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      return storedUser;
+    } catch (err) {
+      throw err.response?.data?.message || "Login failed";
     }
   };
 
-  const register = async (name, email, password) => {
+  // Register function
+  const register = async (data) => {
     try {
-      const res = await axios.post(`${API_URL}/api/users/register`, {
-        name,
-        email,
-        password,
-      });
-      return res.data; // Could auto-login here if desired
-    } catch (error) {
-      throw error.response?.data?.message || "Registration failed";
+      const res = await axios.post(`${API_URL}/api/users/register`, data);
+      return res.data;
+    } catch (err) {
+      throw err.response?.data?.message || "Registration failed";
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
   };
 
-  // Optionally attach token to every request
+  // Ensure token is set in axios headers on reload
   useEffect(() => {
     if (user?.token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
     }
   }, [user]);
 

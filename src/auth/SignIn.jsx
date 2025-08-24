@@ -2,56 +2,26 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion } from "framer-motion";
-import jwt_decode from "jwt-decode";  // Import jwt-decode
-
-const API_URL = import.meta.env.VITE_API_URL || "https://visualogic-backend.onrender.com";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
-      const response = await fetch(`${API_URL}/api/users/login`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password }),
-});
+      const trimmedEmail = email.trim();
+      const trimmedPassword = password.trim();
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.message || "Login failed");
-        return;
-      }
-
-      if (data.token) {
-        // Decode JWT to get expiry (exp)
-        const decoded = jwt_decode(data.token);
-        const expiry = decoded.exp * 1000; // Convert exp seconds to ms
-
-        // Add expiry to user data object
-        const userDataWithExpiry = { ...data, expiry };
-
-        // Save user including expiry in localStorage through login
-        login(userDataWithExpiry);
-
-        // Also save in localStorage (optional, if login does that too)
-        localStorage.setItem("user", JSON.stringify(userDataWithExpiry));
-      } else {
-        // Fallback if no token found
-        login(data);
-        localStorage.setItem("user", JSON.stringify(data));
-      }
-
-      navigate("/");
-    } catch (error) {
-      console.error("Error during login:", error);
-      alert("Server error. Try again later.");
+      await login(trimmedEmail, trimmedPassword);
+      navigate("/"); // redirect after login
+    } catch (err) {
+      setError(err);
     }
   };
 
@@ -82,12 +52,12 @@ const SignIn = () => {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{
-          boxShadow: "0 0 44px #4B6CB777",
-          zIndex: 3,
-        }}
+        style={{ boxShadow: "0 0 44px #4B6CB777", zIndex: 3 }}
       >
         <h2 className="text-3xl font-bold mb-6 text-center text-[#1F2937]">Sign In</h2>
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
@@ -114,6 +84,7 @@ const SignIn = () => {
             Sign In
           </button>
         </form>
+
         <p className="text-sm mt-4 text-center">
           Don't have an account?{" "}
           <Link to="/signup" className="text-[#67C8FF] hover:underline font-medium">
