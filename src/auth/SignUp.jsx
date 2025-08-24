@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://visualogic-backend.onrender.com";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -81,13 +82,14 @@ const handleSubmit = async (e) => {
   if (!validateForm()) return;
 
   try {
-    const response = await fetch("http://localhost:5000/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    const response = await fetch(`${API_URL}/api/users/register`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(form),
+});
+
 
     if (!response.ok) {
       const errorData = await response.json();

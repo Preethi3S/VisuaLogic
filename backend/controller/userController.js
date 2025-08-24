@@ -23,11 +23,13 @@ export const loginUser = async (req, res) => {
     }
 
     res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    });
+  _id: user._id,
+  name: user.name,
+  email: user.email,
+  token: generateToken(user._id),
+  expiresIn: 30 * 24 * 60 * 60 // 30 days in seconds
+});
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -49,11 +51,14 @@ export const registerUser = async (req, res) => {
       collegeName, collegeId, degree, year
     });
 
-    res.status(201).json({ 
-      _id: user._id,
-      name: user.name,
-      email: user.email
-    });
+    res.status(201).json({
+  _id: user._id,
+  name: user.name,
+  email: user.email,
+  token: generateToken(user._id),
+  expiresIn: 30 * 24 * 60 * 60
+});
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

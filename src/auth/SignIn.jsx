@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { motion } from "framer-motion";
 import jwt_decode from "jwt-decode";  // Import jwt-decode
 
+const API_URL = import.meta.env.VITE_API_URL || "https://visualogic-backend.onrender.com";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +16,11 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(`${API_URL}/api/users/login`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
 
       const data = await response.json();
 
