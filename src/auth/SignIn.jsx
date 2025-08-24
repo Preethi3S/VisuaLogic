@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion } from "framer-motion";
+import jwt_decode from "jwt-decode";  // Import jwt-decode
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -9,10 +10,47 @@ const SignIn = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password); // Replace with real login logic
-    navigate("/");
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      if (data.token) {
+        // Decode JWT to get expiry (exp)
+        const decoded = jwt_decode(data.token);
+        const expiry = decoded.exp * 1000; // Convert exp seconds to ms
+
+        // Add expiry to user data object
+        const userDataWithExpiry = { ...data, expiry };
+
+        // Save user including expiry in localStorage through login
+        login(userDataWithExpiry);
+
+        // Also save in localStorage (optional, if login does that too)
+        localStorage.setItem("user", JSON.stringify(userDataWithExpiry));
+      } else {
+        // Fallback if no token found
+        login(data);
+        localStorage.setItem("user", JSON.stringify(data));
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Server error. Try again later.");
+    }
   };
 
   return (

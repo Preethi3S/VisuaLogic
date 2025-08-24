@@ -1,8 +1,10 @@
 // src/scenes/HomeScene.jsx
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
+
 import {
   Cpu,
   Code,
@@ -15,6 +17,9 @@ import {
   Instagram,
   Facebook,
   Twitter,
+  Mail,
+  Phone,
+  Send,
 } from "lucide-react";
 
 const subjects = [
@@ -36,7 +41,13 @@ const plans = [
 ];
 
 const HomeScene = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [contact, setContact] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const categoryMap = {
     All: subjects,
@@ -63,9 +74,44 @@ const HomeScene = () => {
     ]
   };
 
+  const validateContact = () => {
+    const e = {};
+    if (!contact.name.trim()) e.name = "Name is required";
+    if (!contact.email.trim()) e.email = "Email is required";
+    else if (!/^\S+@\S+\.\S+$/.test(contact.email)) e.email = "Enter a valid email";
+    if (!contact.message.trim()) e.message = "Message can't be empty";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleContactChange = (field) => (e) => {
+    setContact(prev => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    if (!validateContact()) return;
+    // For now, simulate success — in production you'd send this to an API
+    setSubmitted(true);
+    setContact({ name: "", email: "", message: "" });
+    setTimeout(() => setSubmitted(false), 5000);
+  };
+
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/signin");
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0f1c] flex flex-col relative overflow-hidden text-white">
-      
+
       {/* CYBER GRID BACKGROUND WITH SCANNING LASER */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <svg className="w-full h-full opacity-40" xmlns="http://www.w3.org/2000/svg">
@@ -144,22 +190,73 @@ const HomeScene = () => {
           ✨ VisuaLogic
         </motion.h1>
 
-        <nav className="space-x-6 hidden md:flex">
-          {["Home", "About", "Contact", "Batches"].map((link, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.1 }}>
-              <Link to={`/${link.toLowerCase().replace(" ", "")}`} className="relative hover:text-[#F8FAFC] transition">
-                {link}
-                <motion.span
-                  className="absolute left-0 -bottom-1 w-full h-0.5 bg-white"
-                  layoutId="underline"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
-            </motion.div>
-          ))}
-        </nav>
+       <nav className="space-x-6 hidden md:flex">
+{["Home", "About", "Contact"].map((link, i) => (
+  <motion.div key={i} whileHover={{ scale: 1.1 }}>
+    {link === "About" ? (
+      <button
+        onClick={() => scrollToSection(aboutRef)}
+        className="relative hover:text-[#F8FAFC] transition"
+      >
+        {link}
+        <motion.span
+          className="absolute left-0 -bottom-1 w-full h-0.5 bg-white"
+          layoutId="underline"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+      </button>
+    ) : link === "Contact" ? (
+      <button
+        onClick={() => scrollToSection(contactRef)}
+        className="relative hover:text-[#F8FAFC] transition"
+      >
+        {link}
+        <motion.span
+          className="absolute left-0 -bottom-1 w-full h-0.5 bg-white"
+          layoutId="underline"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+      </button>
+    ) : (
+      <Link
+        to={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+        className="relative hover:text-[#F8FAFC] transition"
+      >
+        {link}
+        <motion.span
+          className="absolute left-0 -bottom-1 w-full h-0.5 bg-white"
+          layoutId="underline"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+      </Link>
+    )}
+  </motion.div>
+))}
+
+{/* Logout button */}
+<motion.div whileHover={{ scale: 1.1 }}>
+  <button
+    onClick={handleLogout}
+    className="relative hover:text-[#F8FAFC] transition font-semibold"
+  >
+    Logout
+    <motion.span
+      className="absolute left-0 -bottom-1 w-full h-0.5 bg-white"
+      layoutId="underline"
+      initial={{ scaleX: 0 }}
+      whileHover={{ scaleX: 1 }}
+      transition={{ duration: 0.3 }}
+    />
+  </button>
+</motion.div>
+</nav>
+
       </header>
 
       {/* HERO SECTION */}
@@ -218,6 +315,7 @@ const HomeScene = () => {
             type="text"
             placeholder="Search for a topic..."
             className="flex-1 px-3 py-2 outline-none text-gray-700"
+            aria-label="Search topics"
           />
         </motion.div>
       </motion.div>
@@ -291,7 +389,8 @@ const HomeScene = () => {
         </Slider>
       </motion.div>
 
-      {/* SUBSCRIPTION MODEL */}
+          {/* SUBSCRIPTION MODEL */}
+      {/* 
       <motion.section
         className="py-16 relative z-10"
         initial="hidden"
@@ -317,6 +416,132 @@ const HomeScene = () => {
               </button>
             </motion.div>
           ))}
+        </div>
+      </motion.section> */}
+
+      {/* ABOUT SECTION */}
+      <motion.section
+        ref={aboutRef}
+        className="py-16 px-6 relative z-10 bg-gradient-to-b from-transparent to-[#081022]"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-3xl font-bold text-[#F8FAFC] mb-4">About VisuaLogic</h2>
+            <p className="text-gray-300 mb-4">
+              VisuaLogic is built to make Computer Science approachable and memorable.
+              We combine interactive 3D visualizations, clear theory, and hands-on exercises
+              so learners can see how concepts work instead of just reading about them.
+            </p>
+            <p className="text-gray-300">
+              Our mission: help students and self-learners internalize core CS ideas through
+              visuals, experimentation, and guided explanations. Whether you're preparing for
+              exams or building real systems, VisuaLogic supports every step of your learning journey.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 text-[#1F2937] shadow-lg">
+            <h3 className="text-xl font-bold mb-3">Our Core Focus</h3>
+            <ul className="space-y-2 text-sm">
+              <li>• Clear visualizations for tricky concepts</li>
+              <li>• Interactive quizzes & coding sandboxes</li>
+              <li>• Progressive lessons from fundamentals to advanced</li>
+              <li>• Community & mentorship for real feedback</li>
+            </ul>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* CONTACT SECTION */}
+      <motion.section
+        ref={contactRef}
+        id="contact"
+        className="py-16 px-6 relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+
+          {/* Contact card + info */}
+          <div className="bg-[#071026] rounded-2xl p-8 shadow-lg border border-[#123045]">
+            <h2 className="text-3xl font-bold text-[#F8FAFC] mb-4">Get in touch</h2>
+            <p className="text-gray-300 mb-6">Have questions, feedback, or want to collaborate? Send us a message — we'll get back to you soon.</p>
+
+            <div className="flex items-start space-x-4">
+              <div className="p-3 rounded-lg bg-[#0b2b3a]">
+                <Mail />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Email</p>
+                <p className="font-medium">hello@visualogic.dev</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4 mt-4">
+              <div className="p-3 rounded-lg bg-[#0b2b3a]">
+                <Phone />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Phone</p>
+                <p className="font-medium">+91 98765 43210</p>
+              </div>
+            </div>
+
+            <div className="flex space-x-3 mt-6">
+              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                <a key={i} href="#" rel="noreferrer" className="p-2 rounded-md hover:bg-[#0b2b3a]"> <Icon /> </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact form */}
+          <form onSubmit={handleContactSubmit} className="bg-white rounded-2xl p-8 text-[#1F2937] shadow-lg">
+            <h3 className="text-xl font-bold mb-4">Send a message</h3>
+
+            <label className="block text-sm text-gray-600">Name</label>
+            <input
+              value={contact.name}
+              onChange={handleContactChange('name')}
+              className={`w-full mt-1 px-3 py-2 rounded-md border ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
+              placeholder="Your name"
+              aria-label="Your name"
+            />
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+
+            <label className="block text-sm text-gray-600 mt-4">Email</label>
+            <input
+              value={contact.email}
+              onChange={handleContactChange('email')}
+              className={`w-full mt-1 px-3 py-2 rounded-md border ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
+              placeholder="you@example.com"
+              aria-label="Your email"
+            />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+
+            <label className="block text-sm text-gray-600 mt-4">Message</label>
+            <textarea
+              value={contact.message}
+              onChange={handleContactChange('message')}
+              className={`w-full mt-1 px-3 py-2 rounded-md border h-32 ${errors.message ? 'border-red-400' : 'border-gray-200'}`}
+              placeholder="How can we help?"
+              aria-label="Message"
+            />
+            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+
+            <div className="flex items-center justify-between mt-6">
+              <button type="submit" className="px-5 py-2 rounded-full font-bold flex items-center space-x-2" style={{ backgroundColor: '#4B6CB7', color: 'white' }}>
+                <Send size={16} />
+                <span>Send Message</span>
+              </button>
+
+              {submitted && <p className="text-sm text-emerald-400">Thanks — we'll respond shortly!</p>}
+            </div>
+          </form>
         </div>
       </motion.section>
 

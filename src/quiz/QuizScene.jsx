@@ -1,6 +1,6 @@
 // src/quiz/QuizScene.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { quizTopics } from "./quizData";
 import Question from "./Question";
 import { motion } from "framer-motion";
@@ -22,6 +22,9 @@ const QuizScene = ({ isWeeklyContest = false }) => {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
+  const [exitingFullscreen, setExitingFullscreen] = useState(false);
+
+  const navigate = useNavigate();
 
   if (!selectedTopic) return <div>Topic not found</div>;
 
@@ -55,6 +58,24 @@ const QuizScene = ({ isWeeklyContest = false }) => {
     }
   }, []);
 
+  // Auto quit on fullscreen exit (e.g. Escape press), except when exiting due to quiz completion
+  useEffect(() => {
+    const onFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        // Only quit if fullscreen exit not caused by quiz completion
+        if (!exitingFullscreen) {
+          handleQuit();
+        }
+      }
+    };
+
+    document.addEventListener("fullscreenchange", onFullScreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", onFullScreenChange);
+    };
+  }, [exitingFullscreen]);
+
   // Timer countdown for each question
   useEffect(() => {
     if (completed) return;
@@ -81,6 +102,7 @@ const QuizScene = ({ isWeeklyContest = false }) => {
       setTimeLeft(30); // reset timer
     } else {
       setCompleted(true);
+      setExitingFullscreen(true); // Indicate intentional fullscreen exit
       if (document.exitFullscreen) document.exitFullscreen();
 
       // Weekly contest logic
@@ -117,6 +139,12 @@ const QuizScene = ({ isWeeklyContest = false }) => {
   const badgeThreshold = 0.8;
   const earnedBadge = score / selectedTopic.questions.length >= badgeThreshold;
 
+  // Handler for quitting the quiz
+  const handleQuit = () => {
+    if (document.exitFullscreen) document.exitFullscreen();
+    navigate("/quiz");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-6 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-4">{selectedTopic.title}</h1>
@@ -126,6 +154,14 @@ const QuizScene = ({ isWeeklyContest = false }) => {
           <p className="text-gray-600 mb-4">
             Question {currentQ + 1} of {selectedTopic.questions.length} | Time Left: {timeLeft}s
           </p>
+
+          {/* Quit Button */}
+          <button
+            onClick={handleQuit}
+            className="mb-6 px-4 py-2 rounded-full font-bold text-white bg-red-500 hover:bg-red-600"
+          >
+            Quit
+          </button>
 
           <motion.div
             key={currentQ}
@@ -152,24 +188,6 @@ const QuizScene = ({ isWeeklyContest = false }) => {
           <p className="text-gray-700 mb-4">
             Your Score: {score} / {selectedTopic.questions.length}
           </p>
-
-          {earnedBadge && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col items-center mb-6"
-            >
-              <img
-                src="/assets/badge.png"
-                alt="Badge Earned"
-                className="w-32 h-32 mb-4 animate-bounce"
-              />
-              <p className="text-xl font-bold text-[#4B6CB7]">
-                Congratulations! You earned a badge!
-              </p>
-            </motion.div>
-          )}
 
           <Link
             to="/quiz"

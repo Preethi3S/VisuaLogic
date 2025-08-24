@@ -8,6 +8,14 @@ export const quizTopics = [
     questions: [
       { q: "What is a process?", options: ["A program", "A task", "Both", "None"], answer: "Both" },
       { q: "Which algorithm is preemptive?", options: ["FCFS", "SJF", "Round Robin", "Priority Non-preemptive"], answer: "Round Robin" },
+      { q: "What does the term 'context switch' mean?", options: ["Switching CPU to I/O", "Saving and loading process state", "Killing a process", "Starting a new thread"], answer: "Saving and loading process state" },
+      { q: "Which scheduling algorithm gives priority to shortest job next?", options: ["FCFS", "SJF", "Round Robin", "Priority"], answer: "SJF" },
+      { q: "In Round Robin scheduling, what does the time quantum represent?", options: ["Max CPU time per process", "Total number of processes", "Memory limit", "Priority level"], answer: "Max CPU time per process" },
+      { q: "Which scheduling technique can cause starvation?", options: ["FCFS", "SJF", "Round Robin", "Priority Scheduling"], answer: "Priority Scheduling" },
+      { q: "What is the time complexity for scheduling n processes in FCFS?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], answer: "O(n)" },
+      { q: "Which is not a CPU scheduling criterion?", options: ["CPU Utilization", "Throughput", "Turnaround Time", "Disk Access Speed"], answer: "Disk Access Speed" },
+      { q: "What metric measures average time taken from submission to completion?", options: ["Waiting Time", "Turnaround Time", "Response Time", "CPU Burst"], answer: "Turnaround Time" },
+      { q: "What scheduling algorithm is best suited for time-sharing systems?", options: ["FCFS", "Round Robin", "SJF", "Priority"], answer: "Round Robin" },
     ],
   },
   {
@@ -18,6 +26,14 @@ export const quizTopics = [
     questions: [
       { q: "What is lexical analysis?", options: ["Parsing code", "Tokenizing code", "Optimization", "Linking"], answer: "Tokenizing code" },
       { q: "Which phase generates intermediate code?", options: ["Syntax Analysis", "Semantic Analysis", "Code Generation", "Lexical Analysis"], answer: "Code Generation" },
+      { q: "Which data structure is mostly used in parsers?", options: ["Stack", "Queue", "Tree", "Graph"], answer: "Stack" },
+      { q: "What does a symbol table store?", options: ["Tokens", "Variables and their info", "Errors", "Machine code"], answer: "Variables and their info" },
+      { q: "Which parsing technique is top-down?", options: ["LR Parsing", "LL Parsing", "Operator Precedence", "LR(1)"], answer: "LL Parsing" },
+      { q: "What kind of grammar is used for regular expressions?", options: ["Context Sensitive", "Context Free", "Regular", "Type-0"], answer: "Regular" },
+      { q: "In code optimization, what does 'peephole optimization' do?", options: ["Global optimization", "Small local code improvements", "Memory allocation", "Parsing"], answer: "Small local code improvements" },
+      { q: "Binding of variables to memory occurs in which phase?", options: ["Semantic Analysis", "Code Generation", "Linking", "Lexical Analysis"], answer: "Code Generation" },
+      { q: "What is the output of the syntax analysis phase?", options: ["Token stream", "Parse tree", "Machine code", "Error log"], answer: "Parse tree" },
+      { q: "Which of these is a lexical error example?", options: ["Unmatched parenthesis", "Undefined variable", "Invalid token", "Type mismatch"], answer: "Invalid token" },
     ],
   },
   {
@@ -28,6 +44,14 @@ export const quizTopics = [
     questions: [
       { q: "Big O of binary search?", options: ["O(n)", "O(log n)", "O(n log n)", "O(1)"], answer: "O(log n)" },
       { q: "Which data structure is FIFO?", options: ["Stack", "Queue", "Tree", "Graph"], answer: "Queue" },
+      { q: "What is the time complexity of quicksort average case?", options: ["O(n²)", "O(log n)", "O(n log n)", "O(n)"], answer: "O(n log n)" },
+      { q: "Which data structure uses LIFO?", options: ["Queue", "Stack", "Heap", "Graph"], answer: "Stack" },
+      { q: "What is the height of a balanced binary tree with n nodes?", options: ["O(n)", "O(log n)", "O(1)", "O(n log n)"], answer: "O(log n)" },
+      { q: "Which graph traversal uses a queue?", options: ["DFS", "BFS", "Dijkstra", "Prim"], answer: "BFS" },
+      { q: "Which data structure is used in recursion?", options: ["Graph", "Queue", "Stack", "Heap"], answer: "Stack" },
+      { q: "What is the worst case time complexity of inserting into a hash table?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(n)" },
+      { q: "Which of the following is not a stable sorting algorithm?", options: ["Merge Sort", "Bubble Sort", "Heap Sort", "Insertion Sort"], answer: "Heap Sort" },
+      { q: "What is the minimum number of edges in a tree with n nodes?", options: ["n", "n-1", "n+1", "2n"], answer: "n-1" },
     ],
   },
 ];

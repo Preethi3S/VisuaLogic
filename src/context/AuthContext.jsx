@@ -1,33 +1,40 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import authService from "../auth/authService";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    if (!savedUser) return null;
+
+    const parsedUser = JSON.parse(savedUser);
+
+    // Check expiry if available
+    if (parsedUser.expiry && Date.now() > parsedUser.expiry) {
+      localStorage.removeItem("user");
+      return null;
+    }
+    return parsedUser;
+  });
 
   useEffect(() => {
-    const existingUser = authService.getCurrentUser();
-    if (existingUser) setUser(existingUser);
-  }, []);
+    if (user?.expiry && Date.now() > user.expiry) {
+      logout();
+    }
+  }, [user]);
 
-  const login = (email, password) => {
-    const loggedInUser = authService.login(email, password);
-    setUser(loggedInUser);
-  };
-
-  const signup = (email, password) => {
-    const newUser = authService.signup(email, password);
-    setUser(newUser);
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
-    authService.logout();
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

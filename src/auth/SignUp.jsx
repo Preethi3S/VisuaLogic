@@ -76,13 +76,45 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    // TODO: Backend connection here
-    console.log("Submitted", form);
-    navigate("/");
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  try {
+    const response = await fetch("http://localhost:5000/api/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      setErrors({ api: errorData.message || "Registration failed" });
+      return;
+    }
+
+    const data = await response.json();
+    console.log("Registered:", data);
+
+    // Clear form and navigate
+    setForm({
+      name: "",
+      email: "",
+      mobile: "",
+      password: "",
+      collegeName: "",
+      collegeId: "",
+      degree: "",
+      year: "",
+    });
+    navigate("/signin");
+  } catch (err) {
+    console.error("Error registering:", err);
+    setErrors({ api: "Server error. Please try again later." });
+  }
+};
 
   const getStrengthColor = () => {
     switch (passwordStrength) {

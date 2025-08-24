@@ -8,7 +8,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 
 // Main scenes
 import HomeScene from "./scenes/HomeScene";
-import OSScene from "./scenes/OSScene"
+import OSScene from "./scenes/OSScene";
 
 // OS Subjects
 import CPUScheduling from "./subjects/os/CPUScheduler";
@@ -20,64 +20,27 @@ import ProcessSynchronization from "./subjects/os/ProcessSynchronization";
 import VirtualMemory from "./subjects/os/VirtualMemory";
 import ThreadScheduling from "./subjects/os/ThreadScheduling";
 import FileSystemManagement from "./subjects/os/FileSystemManagement";
+
+// Network Subjects
 import OSIModel from "./subjects/networks/OSIModel";
 import PacketFlow from "./subjects/networks/PacketFlow";
 import SubnettingCalculator from "./subjects/networks/SubnettingCalculator";
 import TCPHandshake from "./subjects/networks/TCPHandshake";
+import DataTransmissionScene from "./subjects/networks/DataTransmissionScene";
+import NetworkTopologiesVisualizer from "./subjects/networks/NetworkTopologies";
+import RoutingScene from "./subjects/networks/Routing";
+import SecurityAndPrivacyScene from "./subjects/networks/SecurityAndPrivacyScene";
+
+// DSA Subjects
 import SortingVisualizer from "./subjects/dsa/SortingVisualizer";
 import SearchVisualizer from "./subjects/dsa/SearchVisualizer";
-
-import ERDiagram from "./subjects/dbms/ERModelGenerator";
-
 import TreeTraversalVisualizer from "./subjects/dsa/tree/TreeVisualizer";
 import SegmentTreeVisualizer from "./subjects/dsa/tree/SegmentTreeVisualizer";
 import AVLTree from "./subjects/dsa/tree/AVLTree";
 import RedBlackTreeVisualizer from "./subjects/dsa/tree/RedBlackTreeVisualizer";
 import LinkedListVisualizer from "./subjects/dsa/LinkedList";
-import CodeFlowVisualizer from "./subjects/dsa/CodeVisual";
-import RelationalSchema from "./subjects/dbms/RelationalSchema";
-import SQLQueryPractice from "./subjects/dbms/SQLQueryPractice";
-import NormalizationVisualizer from "./subjects/dbms/NormalizationVisualizer";
-import SQLFlowVisualizer from "./subjects/dbms/SQLFlow";
-import TransactionSimulator from "./subjects/dbms/TransactionSimulator";
-import IndexingVisualizer from "./subjects/dbms/IndexingAndOptimization";
-import LexicalAnalyzer from "./subjects/compiler/LexicalAnalyzer";
-import SyntaxAnalyzer from "./subjects/compiler/SyntaxAnalyser";
-import SemanticAnalyzer from "./subjects/compiler/SemanticAnalyser";
-import IntermediateCodeGenerator from "./subjects/compiler/IntermediateCode";
-import AnimationInspector from "./subjects/web/FrontendPipeline";
-import AnimationVisualizer from "./subjects/web/AnimationVisualizer";
-import NNArchitectureVisualizer from "./subjects/ai/NnArchitectureVisualizer";
-import BackpropVisualizer from "./subjects/ai/BackPropagation";
 import StackQueueVisualizer from "./subjects/dsa/StackQueueVisualizer";
 import RecursionBacktrackingVisualizer from "./subjects/dsa/RecursionAndBacktracking";
-import NetworksScene from "./scenes/NetworksScene";
-import DSAScene from "./scenes/DsaScene";
-import DBMSScene from "./scenes/DBMSScene";
-import CompilerScene from "./scenes/CompilerScene";
-import WebDesignScene from "./scenes/WebDesignScene";
-import AIScene from "./scenes/AIScene";
-import ClusteringVisualizer from "./subjects/ai/ClusteringVisualizer"
-
-import QuizHome from "./quiz/QuizHome";
-import QuizScene from "./quiz/QuizScene";
-import MyBatches from "./scenes/MyBatches";
-import IOMgmtScene from "./subjects/os/IOManagement";
-import SystemCallScene from "./subjects/os/SystemCalls";
-import BootProcessScene from "./subjects/os/BootProcess"; 
-import SecurityScene from "./subjects/os/SecurityProtection";
-import InterruptScene from "./subjects/os/InterruptHandling";
-import KernelScene from "./subjects/os/Kernel";
-import HTMLVisualizer from "./subjects/web/HTMLVisualizer";
-import CSSVisualizer from "./subjects/web/CSSVisualizer";
-import JSFundamentals from "./subjects/web/JSFundamentals";
-import WebsiteArchitecture from "./subjects/web/WebsiteArchitecture";
-import GitBranchingVisualizer from "./subjects/web/GitBranchingVisualizer";
-import DeploymentWorkflow from "./subjects/web/CICDPipeline";
-import DataTransmissionScene from "./subjects/networks/DataTransmissionScene";
-import NetworkTopologiesVisualizer from "./subjects/networks/NetworkTopologies";
-import RoutingScene from "./subjects/networks/Routing";
-import SecurityAndPrivacyScene from "./subjects/networks/SecurityAndPrivacyScene";
 import GraphBasics from "./subjects/dsa/graph/GraphBasics";
 import GraphTraversal from "./subjects/dsa/graph/GraphTraversal";
 import DijkstraVisualizer from "./subjects/dsa/graph/ShortestPath";
@@ -85,6 +48,58 @@ import NetworkFlow from "./subjects/dsa/graph/NetworkFlow";
 import TopologicalSort from "./subjects/dsa/graph/Topologialsort";
 import MSTVisualizer from "./subjects/dsa/graph/SpanningTree";
 import GraphAdvanced from "./subjects/dsa/graph/GraphColorMapConnect";
+import CodeFlowVisualizer from "./subjects/dsa/CodeVisual";
+
+// DBMS Subjects
+import ERDiagram from "./subjects/dbms/ERModelGenerator";
+import RelationalSchema from "./subjects/dbms/RelationalSchema";
+import SQLQueryPractice from "./subjects/dbms/SQLQueryPractice";
+import NormalizationVisualizer from "./subjects/dbms/NormalizationVisualizer";
+import SQLFlowVisualizer from "./subjects/dbms/SQLFlow";
+import TransactionSimulator from "./subjects/dbms/TransactionSimulator";
+import IndexingVisualizer from "./subjects/dbms/IndexingAndOptimization";
+
+// Compiler Subjects
+import LexicalAnalyzer from "./subjects/compiler/LexicalAnalyzer";
+import SyntaxAnalyzer from "./subjects/compiler/SyntaxAnalyser";
+import SemanticAnalyzer from "./subjects/compiler/SemanticAnalyser";
+import IntermediateCodeGenerator from "./subjects/compiler/IntermediateCode";
+
+// Web Subjects
+import AnimationInspector from "./subjects/web/FrontendPipeline";
+import AnimationVisualizer from "./subjects/web/AnimationVisualizer";
+import HTMLVisualizer from "./subjects/web/HTMLVisualizer";
+import CSSVisualizer from "./subjects/web/CSSVisualizer";
+import JSFundamentals from "./subjects/web/JSFundamentals";
+import WebsiteArchitecture from "./subjects/web/WebsiteArchitecture";
+import GitBranchingVisualizer from "./subjects/web/GitBranchingVisualizer";
+import DeploymentWorkflow from "./subjects/web/CICDPipeline";
+
+// AI Subjects
+import NNArchitectureVisualizer from "./subjects/ai/NnArchitectureVisualizer";
+import BackpropVisualizer from "./subjects/ai/BackPropagation";
+import ClusteringVisualizer from "./subjects/ai/ClusteringVisualizer";
+
+// Scenes
+import NetworksScene from "./scenes/NetworksScene";
+import DSAScene from "./scenes/DsaScene";
+import DBMSScene from "./scenes/DBMSScene";
+import CompilerScene from "./scenes/CompilerScene";
+import WebDesignScene from "./scenes/WebDesignScene";
+import AIScene from "./scenes/AIScene";
+
+// Quiz
+import QuizHome from "./quiz/QuizHome";
+import QuizScene from "./quiz/QuizScene";
+import MyBatches from "./scenes/MyBatches";
+
+// Other OS subjects
+import IOMgmtScene from "./subjects/os/IOManagement";
+import SystemCallScene from "./subjects/os/SystemCalls";
+import BootProcessScene from "./subjects/os/BootProcess";
+import SecurityScene from "./subjects/os/SecurityProtection";
+import InterruptScene from "./subjects/os/InterruptHandling";
+import KernelScene from "./subjects/os/Kernel";
 
 function App() {
   return (
@@ -104,428 +119,577 @@ function App() {
           <Route
             path="*"
             element={
+              <PrivateRoute>
                 <HomeScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os"
             element={
-              <OSScene />
+              <PrivateRoute>
+                <OSScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn"
             element={
-              <NetworksScene />
+              <PrivateRoute>
+                <NetworksScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa"
             element={
-              <DSAScene />
+              <PrivateRoute>
+                <DSAScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms"
             element={
-              <DBMSScene/>
+              <PrivateRoute>
+                <DBMSScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cd"
             element={
-              <CompilerScene/>
+              <PrivateRoute>
+                <CompilerScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web"
             element={
-              <WebDesignScene/>
+              <PrivateRoute>
+                <WebDesignScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/ai"
             element={
-              <AIScene/>
+              <PrivateRoute>
+                <AIScene />
+              </PrivateRoute>
             }
           />
+
+          {/* OS Subjects */}
           <Route
             path="/os/cpuscheduling"
             element={
-              <CPUScheduling />
+              <PrivateRoute>
+                <CPUScheduling />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/memorymanagement"
             element={
-              
+              <PrivateRoute>
                 <MemoryManagement />
-              
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/diskscheduling"
             element={
-              
+              <PrivateRoute>
                 <DiskScheduling />
-              
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/deadlockdetection"
             element={
-              
+              <PrivateRoute>
                 <DeadlockDetection />
-              
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/memoryallocation"
             element={
-              <MemoryAllocation />
+              <PrivateRoute>
+                <MemoryAllocation />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/iomanagement"
             element={
-              <IOMgmtScene />
+              <PrivateRoute>
+                <IOMgmtScene />
+              </PrivateRoute>
             }
           />
-
           <Route
             path="/os/processsynchronization"
             element={
-              <ProcessSynchronization />
+              <PrivateRoute>
+                <ProcessSynchronization />
+              </PrivateRoute>
             }
           />
-
           <Route
             path="/os/virtualmemory"
             element={
-              <VirtualMemory />
+              <PrivateRoute>
+                <VirtualMemory />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/threadscheduling"
             element={
-              <ThreadScheduling />
+              <PrivateRoute>
+                <ThreadScheduling />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/filesystemmanagement"
             element={
-              <FileSystemManagement />
+              <PrivateRoute>
+                <FileSystemManagement />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/systemcalls"
             element={
-              <SystemCallScene />
+              <PrivateRoute>
+                <SystemCallScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/bootprocess"
             element={
-              <BootProcessScene />
+              <PrivateRoute>
+                <BootProcessScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/security"
             element={
-              <SecurityScene />
+              <PrivateRoute>
+                <SecurityScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/interrupthandling"
             element={
-              <InterruptScene />
+              <PrivateRoute>
+                <InterruptScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/os/kernelarchitecture"
             element={
-              <KernelScene />
+              <PrivateRoute>
+                <KernelScene />
+              </PrivateRoute>
             }
           />
+
+          {/* Network Subjects */}
           <Route
             path="/cn/osimodel"
             element={
-              <OSIModel />
+              <PrivateRoute>
+                <OSIModel />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/networktopology"
             element={
-              <NetworkTopologiesVisualizer />
+              <PrivateRoute>
+                <NetworkTopologiesVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/security"
             element={
-              <SecurityAndPrivacyScene />
+              <PrivateRoute>
+                <SecurityAndPrivacyScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/packetflow"
             element={
-              <PacketFlow />
+              <PrivateRoute>
+                <PacketFlow />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/routing"
             element={
-              <RoutingScene />
+              <PrivateRoute>
+                <RoutingScene />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/subnettingcalculator"
             element={
-              <SubnettingCalculator />
+              <PrivateRoute>
+                <SubnettingCalculator />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/tcphandshake"
             element={
-              <TCPHandshake />
+              <PrivateRoute>
+                <TCPHandshake />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cn/datatransmission"
             element={
-              <DataTransmissionScene />
+              <PrivateRoute>
+                <DataTransmissionScene />
+              </PrivateRoute>
             }
           />
+
+          {/* DSA Subjects */}
           <Route
             path="/dsa/sortingvisualizer"
             element={
-              <SortingVisualizer />
+              <PrivateRoute>
+                <SortingVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/stackqueue"
             element={
-              <StackQueueVisualizer />
+              <PrivateRoute>
+                <StackQueueVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/recbt"
             element={
-              <RecursionBacktrackingVisualizer/>
+              <PrivateRoute>
+                <RecursionBacktrackingVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/graph"
             element={
-              <GraphBasics/>
+              <PrivateRoute>
+                <GraphBasics />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/map"
             element={
-              <GraphAdvanced/>
+              <PrivateRoute>
+                <GraphAdvanced />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/graphtraversal"
             element={
-              <GraphTraversal/>
+              <PrivateRoute>
+                <GraphTraversal />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/shortestpath"
             element={
-              <DijkstraVisualizer/>
+              <PrivateRoute>
+                <DijkstraVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/networkflow"
             element={
-              <NetworkFlow/>
+              <PrivateRoute>
+                <NetworkFlow />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/topology"
             element={
-              <TopologicalSort/>
+              <PrivateRoute>
+                <TopologicalSort />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/spanningtree"
             element={
-              <MSTVisualizer/>
+              <PrivateRoute>
+                <MSTVisualizer />
+              </PrivateRoute>
             }
           />
-
           <Route
             path="/dsa/searchvisualizer"
             element={
-              <SearchVisualizer />
+              <PrivateRoute>
+                <SearchVisualizer />
+              </PrivateRoute>
             }
           />
-
           <Route
             path="/dsa/treevisualizer"
             element={
-              <TreeTraversalVisualizer />
+              <PrivateRoute>
+                <TreeTraversalVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/segmenttreevisualizer"
             element={
-              <SegmentTreeVisualizer />
+              <PrivateRoute>
+                <SegmentTreeVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/avltreevisualizer"
             element={
-              <AVLTree />
+              <PrivateRoute>
+                <AVLTree />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/redblacktreevisualizer"
             element={
-              <RedBlackTreeVisualizer />
+              <PrivateRoute>
+                <RedBlackTreeVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/linkedlist"
             element={
-              <LinkedListVisualizer />
+              <PrivateRoute>
+                <LinkedListVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dsa/code"
             element={
-              <CodeFlowVisualizer/>
+              <PrivateRoute>
+                <CodeFlowVisualizer />
+              </PrivateRoute>
             }
           />
+
+          {/* DBMS Subjects */}
           <Route
             path="/dbms/erdiagram"
             element={
-              <ERDiagram />
+              <PrivateRoute>
+                <ERDiagram />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/relationalschema"
             element={
-              <RelationalSchema />
+              <PrivateRoute>
+                <RelationalSchema />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/sqlpractice"
             element={
-              <SQLQueryPractice />
+              <PrivateRoute>
+                <SQLQueryPractice />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/normalizer"
             element={
-              <NormalizationVisualizer />
+              <PrivateRoute>
+                <NormalizationVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/sqlflow"
             element={
-              <SQLFlowVisualizer />
+              <PrivateRoute>
+                <SQLFlowVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/transaction"
             element={
-              <TransactionSimulator />
+              <PrivateRoute>
+                <TransactionSimulator />
+              </PrivateRoute>
             }
           />
           <Route
             path="/dbms/indexing"
             element={
-              <IndexingVisualizer />
+              <PrivateRoute>
+                <IndexingVisualizer />
+              </PrivateRoute>
             }
           />
+
+          {/* Compiler Subjects */}
           <Route
             path="/cd/lexicalanalysis"
             element={
-              <LexicalAnalyzer />
+              <PrivateRoute>
+                <LexicalAnalyzer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cd/syntaxanalysis"
             element={
-              <SyntaxAnalyzer />
+              <PrivateRoute>
+                <SyntaxAnalyzer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cd/semanticanalysis"
             element={
-              <SemanticAnalyzer />
+              <PrivateRoute>
+                <SemanticAnalyzer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/cd/icg"
             element={
-              <IntermediateCodeGenerator />
+              <PrivateRoute>
+                <IntermediateCodeGenerator />
+              </PrivateRoute>
             }
           />
+
+          {/* Web Subjects */}
           <Route
             path="/web/frontend"
             element={
-              <AnimationInspector />
+              <PrivateRoute>
+                <AnimationInspector />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/animate"
             element={
-              <AnimationVisualizer />
+              <PrivateRoute>
+                <AnimationVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/html"
             element={
-              <HTMLVisualizer />
+              <PrivateRoute>
+                <HTMLVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/css"
             element={
-              <CSSVisualizer />
+              <PrivateRoute>
+                <CSSVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/js"
             element={
-              <JSFundamentals />
+              <PrivateRoute>
+                <JSFundamentals />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/architecture"
             element={
-              <WebsiteArchitecture />
+              <PrivateRoute>
+                <WebsiteArchitecture />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/git"
             element={
-              <GitBranchingVisualizer />
+              <PrivateRoute>
+                <GitBranchingVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/web/cicd"
             element={
-              <DeploymentWorkflow />
+              <PrivateRoute>
+                <DeploymentWorkflow />
+              </PrivateRoute>
             }
           />
+
+          {/* AI Subjects */}
           <Route
             path="/ai/neuralnetworks"
             element={
-              <NNArchitectureVisualizer />
+              <PrivateRoute>
+                <NNArchitectureVisualizer />
+              </PrivateRoute>
             }
           />
           <Route
             path="/ai/backpropagation"
             element={
-              <BackpropVisualizer />
+              <PrivateRoute>
+                <BackpropVisualizer />
+              </PrivateRoute>
             }
           />
-          <Route path="/ai/clustering" element={<ClusteringVisualizer />} />
+          <Route
+            path="/ai/clustering"
+            element={
+              <PrivateRoute>
+                <ClusteringVisualizer />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
