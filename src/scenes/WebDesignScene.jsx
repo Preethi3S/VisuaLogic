@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Palette, Zap } from "lucide-react";
+import { Palette, Zap, Code, GitBranch, ServerCog, Monitor, FileText } from "lucide-react";
 
 const topics = [
   {
@@ -10,14 +10,56 @@ const topics = [
     path: "/web/frontend",
     icon: Palette,
     description: "Inspect and understand frontend design structure.",
-    color: "#4B6CB7", // Indigo
+    color: "#4B6CB7",
   },
   {
     name: "Animation Visualizer",
     path: "/web/animate",
     icon: Zap,
     description: "Visualize animations and transitions in UI.",
-    color: "#67C8FF", // Sky Blue
+    color: "#67C8FF",
+  },
+  {
+    name: "HTML Visualizer",
+    path: "/web/html",
+    icon: Monitor,
+    description: "Learn and visualize HTML structure for web pages.",
+    color: "#E34F26",
+  },
+  {
+    name: "CSS Visualizer",
+    path: "/web/css",
+    icon: FileText,
+    description: "Understand CSS styling and layout visually.",
+    color: "#1572B6",
+  },
+  {
+    name: "JavaScript Fundamentals",
+    path: "/web/js",
+    icon: Code,
+    description: "Explore core JavaScript concepts interactively.",
+    color: "#F7DF1E",
+  },
+  {
+    name: "Website Architecture",
+    path: "/web/architecture",
+    icon: ServerCog,
+    description: "Visualize how a website is structured and deployed.",
+    color: "#10B981",
+  },
+  {
+    name: "Git Branching Visualizer",
+    path: "/web/git",
+    icon: GitBranch,
+    description: "Understand Git workflows and branching visually.",
+    color: "#F59E0B",
+  },
+  {
+    name: "Deployment Workflow",
+    path: "/web/cicd",
+    icon: Code,
+    description: "Learn modern CI/CD deployment pipelines interactively.",
+    color: "#8B5CF6",
   },
 ];
 

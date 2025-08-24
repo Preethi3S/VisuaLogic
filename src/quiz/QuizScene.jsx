@@ -136,9 +136,7 @@ const QuizScene = ({ isWeeklyContest = false }) => {
     }
   };
 
-  const badgeThreshold = 0.8;
-  const earnedBadge = score / selectedTopic.questions.length >= badgeThreshold;
-
+ 
   // Handler for quitting the quiz
   const handleQuit = () => {
     if (document.exitFullscreen) document.exitFullscreen();
