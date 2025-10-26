@@ -1,13 +1,26 @@
-# Stage 1: Build
-FROM node:18-alpine AS build
+# Use Node 20 Alpine
+FROM node:20-alpine
+
+# Set working directory
 WORKDIR /app
+
+# Copy dependencies
 COPY package*.json ./
-RUN npm ci
+
+# Install dependencies
+RUN npm install
+
+# Copy all source code
 COPY . .
+
+# Build the Vite project
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:stable-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Install serve to serve the build folder
+RUN npm install -g serve
+
+# Expose port 3000
+EXPOSE 3000
+
+# Serve the build folder
+CMD ["serve", "-s", "dist", "-l", "3000"]

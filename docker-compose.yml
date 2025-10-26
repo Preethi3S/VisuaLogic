@@ -1,22 +1,17 @@
-version: '3.8'
+version: "3.9"
 services:
   server:
     build: ./server
+    container_name: visualogic-server
     ports:
-      - "3001:3001"
-    environment:
-      - PORT=3001
-    volumes:
-      - ./server:/app
-      - /app/node_modules
-    command: npm run dev
+      - "5000:5000"
+    restart: unless-stopped
 
   client:
     build: ./client
+    container_name: visualogic-client
     ports:
-      - "8080:80"
+      - "3000:3000"
     depends_on:
       - server
-    volumes:
-      - ./client:/app
-      - /app/node_modules
+    restart: unless-stopped

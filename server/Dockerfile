@@ -1,8 +1,13 @@
-FROM node:18-alpine
+FROM node:20-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm ci
+RUN npm install
+
 COPY . .
-ENV PORT=3001
-EXPOSE 3001
-CMD ["npm", "run", "dev"]
+
+EXPOSE 5000
+
+# Correct CMD syntax
+CMD ["node", "server.js"]
